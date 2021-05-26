@@ -23,7 +23,7 @@ class ResNet(nn.Module):
         self.resnet = resnet18(pretrained=True)
         num_ftrs = self.resnet.fc.in_features
         self.resnet.fc = nn.Linear(num_ftrs, len(class_names))
-        self.resnet.load_state_dict(torch.load(model_name))
+        self.resnet.load_state_dict(torch.load(model_name, map_location=torch.device('cpu')))
 
         # isolate the feature blocks
         self.features = nn.Sequential(self.resnet.conv1,
